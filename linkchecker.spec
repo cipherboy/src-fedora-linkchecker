@@ -4,7 +4,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 3.2
-Release: 3
+Release: 5
 License: GPL
 Group: Development/Tools
 Source: http://dl.sf.net/linkchecker/linkchecker-3.2.tar.gz
@@ -12,6 +12,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Url: http://linkchecker.sourceforge.net/
 BuildRequires: python-devel
 Requires: python-abi = %(%{__python} -c "import sys ; print sys.version[:3]")
+# Do not have one of these to test on:
+ExcludeArch: x86_64
 
 %description
 Linkchecker is a simple script that checks HTML documents for broken links.
@@ -67,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc TODO doc/ cgi/lconline/ test/ README LICENSE
 
 %changelog
+* Sun Jan 02 2006 W. Michael Petullo <mike[at]flyn.org> - 3.2-4
+   - Bump release number to re-import.
+
+* Sun Jan 02 2006 W. Michael Petullo <mike[at]flyn.org> - 3.2-4
+   - ExcludeArch: x86_64.  I don't have one to test on.
+
 * Sun Oct 23 2005 W. Michael Petullo <mike[at]flyn.org> - 3.2-3
    - %dir appropriate directories.
 
