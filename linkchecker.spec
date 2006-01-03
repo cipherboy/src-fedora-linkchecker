@@ -4,7 +4,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 3.3
-Release: 1
+Release: 2
 License: GPL
 Group: Development/Tools
 Source: http://dl.sf.net/linkchecker/%{name}-%{version}.tar.gz
@@ -63,12 +63,27 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/linkcheck/logger/*.py
 %{python_sitelib}/linkcheck/logger/*.pyc
 %ghost %{python_sitelib}/linkcheck/logger/*.pyo
+%dir %{python_sitelib}/linkcheck/dns/rdtypes/ANY
+%{python_sitelib}/linkcheck/dns/rdtypes/ANY/*.py
+%{python_sitelib}/linkcheck/dns/rdtypes/ANY/*.pyc
+%ghost %{python_sitelib}/linkcheck/dns/rdtypes/ANY/*.pyo
+%dir %{python_sitelib}/linkcheck/dns/rdtypes/IN
+%{python_sitelib}/linkcheck/dns/rdtypes/IN/*.py
+%{python_sitelib}/linkcheck/dns/rdtypes/IN/*.pyc
+%ghost %{python_sitelib}/linkcheck/dns/rdtypes/IN/*.pyo
+%dir %{python_sitelib}/linkcheck/dns/rdtypes
+%{python_sitelib}/linkcheck/dns/rdtypes/*.py
+%{python_sitelib}/linkcheck/dns/rdtypes/*.pyc
+%ghost %{python_sitelib}/linkcheck/dns/rdtypes/*.pyo
 %dir %{_datadir}/linkchecker/
 %{_datadir}/linkchecker/*
 %{_mandir}/man1/*
 %doc TODO doc/ cgi/lconline/ test/ README LICENSE
 
 %changelog
+* Mon Jan 03 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-2
+   - Add some missing items to %%files.
+
 * Mon Jan 03 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-1
    - Update to linkchecker 3.3.
 
