@@ -3,11 +3,11 @@
 
 Summary: Check HTML documents for broken links
 Name: linkchecker
-Version: 3.2
-Release: 5
+Version: 3.3
+Release: 1
 License: GPL
 Group: Development/Tools
-Source: http://dl.sf.net/linkchecker/linkchecker-3.2.tar.gz
+Source: http://dl.sf.net/linkchecker/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Url: http://linkchecker.sourceforge.net/
 BuildRequires: python-devel
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc TODO doc/ cgi/lconline/ test/ README LICENSE
 
 %changelog
+* Mon Jan 03 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-1
+   - Update to linkchecker 3.3.
+
 * Sun Jan 02 2006 W. Michael Petullo <mike[at]flyn.org> - 3.2-4
    - Bump release number to re-import.
 
