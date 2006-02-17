@@ -4,7 +4,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 3.3
-Release: 2
+Release: 3
 License: GPL
 Group: Development/Tools
 Source: http://dl.sf.net/linkchecker/%{name}-%{version}.tar.gz
@@ -81,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc TODO doc/ cgi/lconline/ test/ README LICENSE
 
 %changelog
+* Fri Feb 17 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-3
+   - Rebuild for Fedora Extras 5.
+
 * Mon Jan 03 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-2
    - Add some missing items to %%files.
 
