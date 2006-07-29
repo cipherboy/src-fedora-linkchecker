@@ -3,7 +3,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 3.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL
 Group: Development/Tools
 Source: http://dl.sf.net/linkchecker/%{name}-%{version}.tar.gz
@@ -55,6 +55,8 @@ rm -rf %{buildroot}
 %files -f pyfiles
 %{_bindir}/linkchecker
 %{python_sitelib}/*.py
+%{python_sitelib}/*.pyo
+%{python_sitelib}/*.pyc
 %dir %{python_sitelib}/linkcheck/
 %{python_sitelib}/linkcheck/*.py
 %{python_sitelib}/linkcheck/*.pyc
@@ -103,6 +105,9 @@ rm -rf %{buildroot}
 %lang(fr) %{_mandir}/fr/man1/linkchecker.1*
 
 %changelog
+* Fri Jul 28 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-7
+   - Install /usr/lib/python2.4/site-packages/_linkchecker_configdata.pyc again.
+
 * Fri Jul 28 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-6
    - Add %{buildroot} to previous.
 
