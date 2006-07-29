@@ -3,7 +3,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 3.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL
 Group: Development/Tools
 Source: http://dl.sf.net/linkchecker/%{name}-%{version}.tar.gz
@@ -103,6 +103,9 @@ rm -rf %{buildroot}
 %lang(fr) %{_mandir}/fr/man1/linkchecker.1*
 
 %changelog
+* Fri Jul 28 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-5
+   - Do not install /usr/lib/python2.4/site-packages/_linkchecker_configdata.pyc
+
 * Fri Jul 28 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-4
    - Apply patch from Paul Howarth that fixes build on Rawhide (BZ
    200282).
