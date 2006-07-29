@@ -46,6 +46,9 @@ rm -rf %{buildroot}
     sed 's:%{buildroot}\(.*\):%ghost \1:'
 ) > pyfiles
 
+rm -f /usr/lib/python2.4/site-packages/_linkchecker_configdata.pyc
+rm -f /usr/lib/python2.4/site-packages/_linkchecker_configdata.pyo
+
 %clean
 rm -rf %{buildroot}
 
