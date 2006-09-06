@@ -3,7 +3,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 3.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL
 Group: Development/Tools
 Source: http://dl.sf.net/linkchecker/%{name}-%{version}.tar.gz
@@ -40,10 +40,8 @@ rm -rf %{buildroot}
   echo '%defattr (0644,root,root,0755)'
   find %{buildroot}%{python_sitelib}/linkcheck -type d |
     sed 's:%{buildroot}\(.*\):%dir \1:'
-  find %{buildroot}%{python_sitelib}/linkcheck -not -type d -not -name '*.pyo' |
+  find %{buildroot}%{python_sitelib}/linkcheck -not -type d |
     sed 's:%{buildroot}\(.*\):\1:'
-  find %{buildroot}%{python_sitelib}/linkcheck -not -type d -name '*.pyo' |
-    sed 's:%{buildroot}\(.*\):%ghost \1:'
 ) > pyfiles
 
 rm -f %{buildroot}/usr/lib/python2.4/site-packages/_linkchecker_configdata.pyc
@@ -54,47 +52,6 @@ rm -rf %{buildroot}
 
 %files -f pyfiles
 %{_bindir}/linkchecker
-%{python_sitelib}/*.py
-%{python_sitelib}/*.pyo
-%{python_sitelib}/*.pyc
-%dir %{python_sitelib}/linkcheck/
-%{python_sitelib}/linkcheck/*.py
-%{python_sitelib}/linkcheck/*.pyc
-%ghost %{python_sitelib}/linkcheck/*.pyo
-%dir %{python_sitelib}/linkcheck/HtmlParser/
-%{python_sitelib}/linkcheck/HtmlParser/*.py
-%{python_sitelib}/linkcheck/HtmlParser/*.pyc
-%{python_sitelib}/linkcheck/HtmlParser/*.so
-%ghost %{python_sitelib}/linkcheck/HtmlParser/*.pyo
-%dir %{python_sitelib}/linkcheck/ftpparse/
-%{python_sitelib}/linkcheck/ftpparse/*.py
-%{python_sitelib}/linkcheck/ftpparse/*.pyc
-%{python_sitelib}/linkcheck/ftpparse/*.so
-%ghost %{python_sitelib}/linkcheck/ftpparse/*.pyo
-%dir %{python_sitelib}/linkcheck/checker/
-%{python_sitelib}/linkcheck/checker/*.py
-%{python_sitelib}/linkcheck/checker/*.pyc
-%ghost %{python_sitelib}/linkcheck/checker/*.pyo
-%dir %{python_sitelib}/linkcheck/dns/
-%{python_sitelib}/linkcheck/dns/*.py
-%{python_sitelib}/linkcheck/dns/*.pyc
-%ghost %{python_sitelib}/linkcheck/dns/*.pyo
-%dir %{python_sitelib}/linkcheck/logger/
-%{python_sitelib}/linkcheck/logger/*.py
-%{python_sitelib}/linkcheck/logger/*.pyc
-%ghost %{python_sitelib}/linkcheck/logger/*.pyo
-%dir %{python_sitelib}/linkcheck/dns/rdtypes/ANY
-%{python_sitelib}/linkcheck/dns/rdtypes/ANY/*.py
-%{python_sitelib}/linkcheck/dns/rdtypes/ANY/*.pyc
-%ghost %{python_sitelib}/linkcheck/dns/rdtypes/ANY/*.pyo
-%dir %{python_sitelib}/linkcheck/dns/rdtypes/IN
-%{python_sitelib}/linkcheck/dns/rdtypes/IN/*.py
-%{python_sitelib}/linkcheck/dns/rdtypes/IN/*.pyc
-%ghost %{python_sitelib}/linkcheck/dns/rdtypes/IN/*.pyo
-%dir %{python_sitelib}/linkcheck/dns/rdtypes
-%{python_sitelib}/linkcheck/dns/rdtypes/*.py
-%{python_sitelib}/linkcheck/dns/rdtypes/*.pyc
-%ghost %{python_sitelib}/linkcheck/dns/rdtypes/*.pyo
 %dir %{_datadir}/linkchecker/
 %{_datadir}/linkchecker/*
 %{_mandir}/man1/*
@@ -105,6 +62,9 @@ rm -rf %{buildroot}
 %lang(fr) %{_mandir}/fr/man1/linkchecker.1*
 
 %changelog
+* Wed Sep 06 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-8
+   - Remove %%ghost from .pyo files: new Fedora policy.
+
 * Fri Jul 28 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-7
    - Install /usr/lib/python2.4/site-packages/_linkchecker_configdata.pyc again.
 
