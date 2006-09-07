@@ -48,6 +48,8 @@ rm -rf %{buildroot}
 rm -rf %{buildroot}
 
 %files -f pyfiles
+%{python_sitelib}/*.pyc
+%{python_sitelib}/*.pyo
 %{_bindir}/linkchecker
 %dir %{_datadir}/linkchecker/
 %{_datadir}/linkchecker/*
