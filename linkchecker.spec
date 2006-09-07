@@ -3,7 +3,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 3.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL
 Group: Development/Tools
 Source: http://dl.sf.net/linkchecker/%{name}-%{version}.tar.gz
@@ -38,7 +38,7 @@ rm -rf %{buildroot}
 # Collate list of python files
 (
   echo '%defattr (0644,root,root,0755)'
-  find %{buildroot}%{python_sitelib} -type d |
+  find %{buildroot}%{python_sitelib}/linkchecker -type d |
     sed 's:%{buildroot}\(.*\):%dir \1:'
   find %{buildroot}%{python_sitelib} -not -type d |
     sed 's:%{buildroot}\(.*\):\1:'
@@ -59,6 +59,9 @@ rm -rf %{buildroot}
 %lang(fr) %{_mandir}/fr/man1/linkchecker.1*
 
 %changelog
+* Wed Sep 06 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-9
+   - Do not own %%{buildroot}%%{python_sitelib}.
+
 * Wed Sep 06 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-8
    - Remove %%ghost from .pyo files: new Fedora policy.
 
