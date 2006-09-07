@@ -38,9 +38,9 @@ rm -rf %{buildroot}
 # Collate list of python files
 (
   echo '%defattr (0644,root,root,0755)'
-  find %{buildroot}%{python_sitelib}/linkcheck -type d |
+  find %{buildroot}%{python_sitelib} -type d |
     sed 's:%{buildroot}\(.*\):%dir \1:'
-  find %{buildroot}%{python_sitelib}/linkcheck -not -type d |
+  find %{buildroot}%{python_sitelib} -not -type d |
     sed 's:%{buildroot}\(.*\):\1:'
 ) > pyfiles
 
@@ -48,7 +48,6 @@ rm -rf %{buildroot}
 rm -rf %{buildroot}
 
 %files -f pyfiles
-%{python_sitelib}/_linkchecker_configdata.py
 %{_bindir}/linkchecker
 %dir %{_datadir}/linkchecker/
 %{_datadir}/linkchecker/*
