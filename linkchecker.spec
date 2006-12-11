@@ -17,6 +17,13 @@ ExcludeArch: x86_64
 Linkchecker is a simple script that checks HTML documents for broken links.
 
 %prep
+cat<<EOT
+
+Build disabled. Package is without maintainer.
+
+EOT
+exit 1
+
 %setup -q
 
 # Fix character encoding
