@@ -1,30 +1,26 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
 
 Summary: Check HTML documents for broken links
 Name: linkchecker
-Version: 3.3
-Release: 11%{?dist}
-License: GPL
+Version: 4.7
+Release: 9%{?dist}
+License: GPLv2
 Group: Development/Tools
-Source: http://dl.sf.net/linkchecker/%{name}-%{version}.tar.gz
+Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch1: linkchecker-4.7-fedora-build.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Url: http://linkchecker.sourceforge.net/
-BuildRequires: python-devel
+BuildRequires: python-devel gettext
 # Do not have one of these to test on:
-ExcludeArch: x86_64
+# ExcludeArch: x86_64
 
 %description
 Linkchecker is a simple script that checks HTML documents for broken links.
 
 %prep
-cat<<EOT
-
-Build disabled. Package is without maintainer.
-
-EOT
-exit 1
-
 %setup -q
+%patch1 -p1 -b .fedora-build
 
 # Fix character encoding
 iconv -f iso-8859-1 -t utf-8 -o linkchecker-de.1 doc/de/linkchecker.1
@@ -42,32 +38,70 @@ CFLAGS="%{optflags}" %{__python} setup.py build
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root=%{buildroot}
 
-# Collate list of python files
-(
-  echo '%defattr (0644,root,root,0755)'
-  find %{buildroot}%{python_sitelib}/linkchecker -type d |
-    sed 's:%{buildroot}\(.*\):%dir \1:'
-  find %{buildroot}%{python_sitelib} -not -type d |
-    sed 's:%{buildroot}\(.*\):\1:'
-) > pyfiles
+# The upstream installer does not seem to install these right:
+%{__install} -D -m 0644 build/share/locale/de/LC_MESSAGES/linkchecker.mo %{buildroot}%{_datadir}/locale/de/LC_MESSAGES/linkchecker.mo
+%{__install} -D -m 0644 build/share/locale/fr/LC_MESSAGES/linkchecker.mo %{buildroot}%{_datadir}/locale/fr/LC_MESSAGES/linkchecker.mo
+%{__install} -D -m 0644 build/share/locale/es/LC_MESSAGES/linkchecker.mo %{buildroot}%{_datadir}/locale/es/LC_MESSAGES/linkchecker.mo
+
+%find_lang %{name}
 
 %clean
 rm -rf %{buildroot}
 
-%files -f pyfiles
-%{python_sitelib}/*.pyc
-%{python_sitelib}/*.pyo
+%files -f %{name}.lang
+%defattr(-,root,root,-)
 %{_bindir}/linkchecker
-%dir %{_datadir}/linkchecker/
-%{_datadir}/linkchecker/*
-%{_mandir}/man1/*
-%doc TODO doc/ cgi/lconline/ test/ README LICENSE
-%dir %{_mandir}/de/man1
+#%ifarch x86_64 ppc64
+%{python_sitearch}/linkcheck/
+%{python_sitearch}/_linkchecker_configdata.*
+#%else
+#%{python_sitelib}/linkcheck/
+#%{python_sitelib}/_linkchecker_configdata.*
+#%endif
+%config(noreplace) %{_sysconfdir}/linkchecker
+%{_mandir}/man1/linkchecker.1*
 %lang(de) %{_mandir}/de/man1/linkchecker.1*
-%dir %{_mandir}/fr/man1
 %lang(fr) %{_mandir}/fr/man1/linkchecker.1*
+%doc TODO doc/en README COPYING
 
 %changelog
+* Mon Sep 10 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-9
+   - Rebuild for F7.
+
+* Fri Jul 27 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-8
+   - On 64-bit platforms, everything is in %{python_sitearch}/linkcheck/.
+
+* Wed Jul 25 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-7
+   - Install configuration files in /etc/linkchecker.
+   - Do not install examples.
+
+* Tue Jul 24 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-6
+   - Install logging.conf again.
+   - Use %%find_lang.
+
+* Sat Jul 21 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-5
+   - Simplify %%files.
+   - Don't install logging.conf because it is not documented.
+   - Install linkcheckerrc into /etc/linkchecker.
+
+* Mon Jul 16 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-4
+   - Own %%{python_sitelib}/linkcheck/ and %%{python_sitearch}/linkcheck/.
+   - Include .1.gz-style man pages in %%files.
+   - Include _linkchecker_configdata.* instead of just .py.
+
+* Sat Jul 14 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-3
+   - Use sitearch for .so, sitelib for .py, .pyo and .pyc.
+   - Clean up docs directory.
+
+* Thu Jul 12 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-2
+   - Use sitearch instead of sitelib.
+   - Fix upstream source location.
+   - Simplify %%files.
+
+* Wed Jul 11 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-1
+   - Rebuild for F7.
+   - Update to upstream 4.7.
+
 * Thu Sep 07 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-11
    - Rebuild for FC6.
 
@@ -84,7 +118,7 @@ rm -rf %{buildroot}
    - Install /usr/lib/python2.4/site-packages/_linkchecker_configdata.pyc again.
 
 * Fri Jul 28 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-6
-   - Add %{buildroot} to previous.
+   - Add %%{buildroot} to previous.
 
 * Fri Jul 28 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-5
    - Do not install /usr/lib/python2.4/site-packages/_linkchecker_configdata.pyc
