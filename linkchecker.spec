@@ -66,7 +66,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Mon Sep 10 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-9
-   - Rebuild for F7.
+   - Rebuild for F8.
 
 * Fri Jul 27 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-8
    - On 64-bit platforms, everything is in %{python_sitearch}/linkcheck/.
