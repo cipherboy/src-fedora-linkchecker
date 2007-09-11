@@ -4,7 +4,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 4.7
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv2
 Group: Development/Tools
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ rm -rf %{buildroot}
 %doc TODO doc/en README COPYING
 
 %changelog
+* Mon Sep 10 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-10
+   - Bump version to retag with new sources.
+
 * Mon Sep 10 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-9
    - Rebuild for F8.
 
