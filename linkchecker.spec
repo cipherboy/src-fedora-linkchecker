@@ -4,7 +4,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 4.7
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPLv2
 Group: Development/Tools
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -43,6 +43,8 @@ rm -rf %{buildroot}
 %{__install} -D -m 0644 build/share/locale/fr/LC_MESSAGES/linkchecker.mo %{buildroot}%{_datadir}/locale/fr/LC_MESSAGES/linkchecker.mo
 %{__install} -D -m 0644 build/share/locale/es/LC_MESSAGES/linkchecker.mo %{buildroot}%{_datadir}/locale/es/LC_MESSAGES/linkchecker.mo
 
+rm -f %{buildroot}%{python_sitearch}/linkchecker-4.7-py2.5.egg-info
+
 %find_lang %{name}
 
 %clean
@@ -65,6 +67,9 @@ rm -rf %{buildroot}
 %doc TODO doc/en README COPYING
 
 %changelog
+* Wed Feb 13 2008 W. Michael Petullo <mike[at]flyn.org> - 4.7-11
+   - Don't install linkchecker-4.7-py2.5.egg-info.
+
 * Mon Sep 10 2007 W. Michael Petullo <mike[at]flyn.org> - 4.7-10
    - Bump version to retag with new sources.
 
