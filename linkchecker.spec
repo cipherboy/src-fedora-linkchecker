@@ -1,10 +1,11 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
+%{!?python_version: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_version; print get_python_version()")}
 
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 4.7
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: GPLv2
 Group: Development/Tools
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -43,7 +44,7 @@ rm -rf %{buildroot}
 %{__install} -D -m 0644 build/share/locale/fr/LC_MESSAGES/linkchecker.mo %{buildroot}%{_datadir}/locale/fr/LC_MESSAGES/linkchecker.mo
 %{__install} -D -m 0644 build/share/locale/es/LC_MESSAGES/linkchecker.mo %{buildroot}%{_datadir}/locale/es/LC_MESSAGES/linkchecker.mo
 
-rm -f %{buildroot}%{python_sitearch}/linkchecker-4.7-py2.6.egg-info
+rm -f %{buildroot}%{python_sitearch}/linkchecker-4.7-py%{python_version}.egg-info
 
 %find_lang %{name}
 
@@ -53,13 +54,13 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %{_bindir}/linkchecker
-#%ifarch x86_64 ppc64
+%ifarch x86_64 ppc64
 %{python_sitearch}/linkcheck/
 %{python_sitearch}/_linkchecker_configdata.*
-#%else
-#%{python_sitelib}/linkcheck/
-#%{python_sitelib}/_linkchecker_configdata.*
-#%endif
+%else
+%{python_sitelib}/linkcheck/
+%{python_sitelib}/_linkchecker_configdata.*
+%endif
 %config(noreplace) %{_sysconfdir}/linkchecker
 %{_mandir}/man1/linkchecker.1*
 %lang(de) %{_mandir}/de/man1/linkchecker.1*
@@ -67,6 +68,9 @@ rm -rf %{buildroot}
 %doc TODO doc/en README COPYING
 
 %changelog
+* Sat Dec 12 2008 W. Michael Petullo <mike[at]flyn.org> - 4.7-14
+   - Dynamically discover version (for .egg-info), do not hard code.
+
 * Sat Dec 12 2008 W. Michael Petullo <mike[at]flyn.org> - 4.7-13
    - linkchecker-4.7-py2.5.egg-info -> 2.6.
 
