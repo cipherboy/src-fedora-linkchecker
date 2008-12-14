@@ -1,6 +1,6 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-%{!?python_version: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_version; print get_python_version()")}
+%{!?python_version: %define python_version %(%{__python} -c "from distutils.sysconfig import get_python_version; print get_python_version()")}
 
 Summary: Check HTML documents for broken links
 Name: linkchecker
@@ -54,13 +54,8 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %{_bindir}/linkchecker
-%ifarch x86_64 ppc64
 %{python_sitearch}/linkcheck/
 %{python_sitearch}/_linkchecker_configdata.*
-%else
-%{python_sitelib}/linkcheck/
-%{python_sitelib}/_linkchecker_configdata.*
-%endif
 %config(noreplace) %{_sysconfdir}/linkchecker
 %{_mandir}/man1/linkchecker.1*
 %lang(de) %{_mandir}/de/man1/linkchecker.1*
