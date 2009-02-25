@@ -5,7 +5,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 4.7
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPLv2
 Group: Development/Tools
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -63,6 +63,9 @@ rm -rf %{buildroot}
 %doc TODO doc/en README COPYING
 
 %changelog
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Sat Dec 12 2008 W. Michael Petullo <mike[at]flyn.org> - 4.7-14
    - Dynamically discover version (for .egg-info), do not hard code.
 
