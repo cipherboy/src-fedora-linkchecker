@@ -4,12 +4,13 @@
 
 Summary: Check HTML documents for broken links
 Name: linkchecker
-Version: 5.1
+Version: 5.2
 Release: 1%{?dist}
 License: GPLv2
 Group: Development/Tools
 #Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source: http://downloads.sourceforge.net/linkchecker/LinkChecker-%{version}.tar.gz
+Source1: linkchecker.desktop
 BuildRoot: %{_tmppath}/LinkChecker-%{version}-%{release}-root-%(%{__id_u} -n)
 Url: http://linkchecker.sourceforge.net/
 # qt4-devel is for qcollectiongenerator (HTML documentation)
@@ -28,6 +29,8 @@ CFLAGS="%{optflags}" %{__python} setup.py build
 %install
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root=%{buildroot}
+install -D -p --mode=644 doc/html/logo64x64.png %{buildroot}/usr/share/pixmaps/linkchecker.png
+desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 
 rm -f %{buildroot}%{python_sitearch}/LinkChecker-%{version}-py%{python_version}.egg-info
 
@@ -46,20 +49,27 @@ rm -rf %{buildroot}
 %lang(de) %{_mandir}/de/man1/linkchecker*.1*
 %lang(de) %{_mandir}/de/man5/linkcheckerrc.5*
 %{_datadir}/linkchecker
-%doc TODO.txt README.txt COPYING.txt
+%doc readme.txt COPYING
 
 %package gui
 Summary: %{name}'s gui
 Group: Development/Tools
 Requires: linkchecker = %{version}-%{release} PyQt4
+BuildRequires: desktop-file-utils
 
 %description gui
 A simple application that checks HTML documents for broken links.
 
 %files gui
 %{_bindir}/linkchecker-gui
+%{_datadir}/applications/linkchecker.desktop
+%{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Wed Apr 21 2010 W. Michael Petullo <mike[at]flyn.org> - 5.2-1
+- Update to upstream 5.2
+- Add .desktop file
+
 * Sun Feb 14 2010 W. Michael Petullo <mike[at]flyn.org> - 5.1-1
 - Update to upstream 5.1
 - BuildRequire qt4-devel
