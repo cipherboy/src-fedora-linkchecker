@@ -5,7 +5,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Group: Development/Tools
 #Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ A simple application that checks HTML documents for broken links.
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Wed Jul 21 2010 David Malcolm <dmalcolm@redhat.com> - 5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
+
 * Wed Apr 21 2010 W. Michael Petullo <mike[at]flyn.org> - 5.2-1
 - Update to upstream 5.2
 - Add .desktop file
