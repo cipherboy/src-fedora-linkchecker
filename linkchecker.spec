@@ -4,12 +4,12 @@
 
 Summary: Check HTML documents for broken links
 Name: linkchecker
-Version: 5.2
-Release: 3%{?dist}
+Version: 6.5
+Release: 1%{?dist}
 License: GPLv2
 Group: Development/Tools
 #Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Source: http://downloads.sourceforge.net/linkchecker/LinkChecker-%{version}.tar.gz
+Source: http://downloads.sourceforge.net/linkchecker/LinkChecker-%{version}.tar.bz2
 Source1: linkchecker.desktop
 BuildRoot: %{_tmppath}/LinkChecker-%{version}-%{release}-root-%(%{__id_u} -n)
 Url: http://linkchecker.sourceforge.net/
@@ -66,6 +66,9 @@ A simple application that checks HTML documents for broken links.
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Mon Mar 21 2011 W. Michael Petullo <mike[at]flyn.org> - 6.5-1
+- Update to upstream 6.5
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
