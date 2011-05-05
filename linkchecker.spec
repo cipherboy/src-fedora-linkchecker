@@ -54,7 +54,7 @@ rm -rf %{buildroot}
 %package gui
 Summary: %{name}'s gui
 Group: Development/Tools
-Requires: linkchecker = %{version}-%{release} PyQt4
+Requires: linkchecker = %{version}-%{release} PyQt4 qscintilla-python
 BuildRequires: desktop-file-utils
 
 %description gui
@@ -66,6 +66,9 @@ A simple application that checks HTML documents for broken links.
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Thu May 05 2011 W. Michael Petullo <mike[at]flyn.org> - 6.5-2
+- Add qscintilla-python dependency to linkchecker-gui
+
 * Mon Mar 21 2011 W. Michael Petullo <mike[at]flyn.org> - 6.5-1
 - Update to upstream 6.5
 
