@@ -5,7 +5,7 @@
 Summary: Check HTML documents for broken links
 Name: linkchecker
 Version: 6.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Group: Development/Tools
 #Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ A simple application that checks HTML documents for broken links.
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Wed May 11 2011 W. Michael Petullo <mike[at]flyn.org> - 6.5-3
+- Bump release because last change did not propagate to F14/15
+
 * Thu May 05 2011 W. Michael Petullo <mike[at]flyn.org> - 6.5-2
 - Add qscintilla-python dependency to linkchecker-gui
 
