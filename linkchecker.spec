@@ -1,71 +1,92 @@
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-%{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-%{!?python_version: %define python_version %(%{__python} -c "from distutils.sysconfig import get_python_version; print get_python_version()")}
-
-Summary: Check HTML documents for broken links
-Name: linkchecker
-Version: 6.5
-Release: 7%{?dist}
-License: GPLv2
-Group: Development/Tools
-#Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Source: http://downloads.sourceforge.net/linkchecker/LinkChecker-%{version}.tar.bz2
-Source1: linkchecker.desktop
-BuildRoot: %{_tmppath}/LinkChecker-%{version}-%{release}-root-%(%{__id_u} -n)
-Url: http://linkchecker.sourceforge.net/
+Name:           linkchecker
+Version:        8.6
+Release:        1%{?dist}
+Summary:        Check HTML documents for broken links
+License:        GPLv2
+URL:            http://wummel.github.io/linkchecker/
+Source0:        http://wummel.github.io/linkchecker/dist/LinkChecker-%{version}.tar.xz
+Patch0:         linkchecker-fix-non-standard-deskop-file.patch
 # qt4-devel is for qcollectiongenerator (HTML documentation)
-BuildRequires: python-devel gettext qt4-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  gettext
+BuildRequires:  python2-devel
+BuildRequires:  python-setuptools
+BuildRequires:  qt4-devel
 
 %description
-Linkchecker is a simple script that checks HTML documents for broken links.
+LinkChecker is a free, GPL licensed website validator. LinkChecker checks 
+links in web documents or full websites.
+
+Features:
+- recursive and multithreaded checking and site crawling
+- output in colored or normal text, HTML, SQL, CSV, XML or a sitemap graph in 
+different formats
+- HTTP/1.1, HTTPS, FTP, mailto:, news:, nntp:, Telnet and local file links 
+support
+- restriction of link checking with regular expression filters for URLs
+- proxy support
+- username/password authorization for HTTP and FTP and Telnet
+- honors robots.txt exclusion protocol
+- Cookie support
+- HTML5 support
+- HTML and CSS syntax check
+- Antivirus check
+- Different interfaces: command line, GUI and web interface
+... and a lot more ...
+
+%package        gui
+Summary:        GUI of %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       PyQt4
+Requires:       qscintilla-python
+
+%description    gui
+This package contains a GUI program of %{name}.
 
 %prep
-%setup -q -n LinkChecker-%{version}
+%setup -qn LinkChecker-%{version}
+%patch0 -p1
 
 %build
 make -C doc/html/
-CFLAGS="%{optflags}" %{__python} setup.py build
+CFLAGS="%{optflags}" %{__python2} setup.py build
 
 %install
-rm -rf %{buildroot}
-%{__python} setup.py install -O1 --skip-build --root=%{buildroot}
-install -D -p --mode=644 doc/html/logo64x64.png %{buildroot}/usr/share/pixmaps/linkchecker.png
-desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
+%{__python2} setup.py install -O1 --skip-build --root=%{buildroot}
+install -pDm644 doc/html/logo64x64.png %{buildroot}%{_datadir}/pixmaps/linkchecker.png
 
-rm -f %{buildroot}%{python_sitearch}/LinkChecker-%{version}-py%{python_version}.egg-info
+rm -rf %{buildroot}%{python2_sitearch}/LinkChecker-%{version}-py%{python2_version}.egg-info
+rm %{buildroot}%{_datadir}/applications/linkchecker.desktop
 
-%find_lang LinkChecker
+%find_lang linkchecker
 
-%clean
-rm -rf %{buildroot}
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.desktop
 
-%files -f LinkChecker.lang
-%defattr(-,root,root,-)
+%files -f linkchecker.lang
+%doc COPYING README.txt
 %{_bindir}/linkchecker
-%{python_sitearch}/linkcheck/
-%{python_sitearch}/_LinkChecker_configdata.*
+%{_bindir}/linkchecker-nagios
+%{python2_sitearch}/linkcheck/
+%{python2_sitearch}/linkcheck_dns/
+%{python2_sitearch}/_LinkChecker_configdata.*
 %{_mandir}/man1/linkchecker*.1*
 %{_mandir}/man5/linkcheckerrc.5*
 %lang(de) %{_mandir}/de/man1/linkchecker*.1*
 %lang(de) %{_mandir}/de/man5/linkcheckerrc.5*
-%{_datadir}/linkchecker
-%doc readme.txt COPYING
-
-%package gui
-Summary: %{name}'s gui
-Group: Development/Tools
-Requires: linkchecker = %{version}-%{release} PyQt4 qscintilla-python
-BuildRequires: desktop-file-utils
-
-%description gui
-A simple application that checks HTML documents for broken links.
+%{_datadir}/linkchecker/
 
 %files gui
 %{_bindir}/linkchecker-gui
-%{_datadir}/applications/linkchecker.desktop
+%{_datadir}/applications/linkchecker-gui.desktop
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Fri Jan 10 2014 Christopher Meng <rpm@cicku.me> - 8.6-1
+- Update to 8.6
+- SPEC cleanup.
+- Standardize desktop files.
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
@@ -110,10 +131,10 @@ A simple application that checks HTML documents for broken links.
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Sat Dec 12 2008 W. Michael Petullo <mike[at]flyn.org> - 4.7-14
+* Fri Dec 12 2008 W. Michael Petullo <mike[at]flyn.org> - 4.7-14
 - Dynamically discover version (for .egg-info), do not hard code
 
-* Sat Dec 12 2008 W. Michael Petullo <mike[at]flyn.org> - 4.7-13
+* Fri Dec 12 2008 W. Michael Petullo <mike[at]flyn.org> - 4.7-13
 - linkchecker-4.7-py2.5.egg-info -> 2.6
 
 * Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 4.7-12
@@ -189,16 +210,16 @@ A simple application that checks HTML documents for broken links.
 * Fri Feb 17 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-3
 - Rebuild for Fedora Extras 5
 
-* Mon Jan 03 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-2
+* Tue Jan 03 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-2
 - Add some missing items to %%files
 
-* Mon Jan 03 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-1
+* Tue Jan 03 2006 W. Michael Petullo <mike[at]flyn.org> - 3.3-1
 - Update to linkchecker 3.3
 
-* Sun Jan 02 2006 W. Michael Petullo <mike[at]flyn.org> - 3.2-4
+* Mon Jan 02 2006 W. Michael Petullo <mike[at]flyn.org> - 3.2-4
 - Bump release number to re-import
 
-* Sun Jan 02 2006 W. Michael Petullo <mike[at]flyn.org> - 3.2-4
+* Mon Jan 02 2006 W. Michael Petullo <mike[at]flyn.org> - 3.2-4
 - ExcludeArch: x86_64.  I don't have one to test on
 
 * Sun Oct 23 2005 W. Michael Petullo <mike[at]flyn.org> - 3.2-3
