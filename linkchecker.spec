@@ -1,6 +1,6 @@
 Name:           linkchecker
 Version:        8.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
 URL:            http://wummel.github.io/linkchecker/
@@ -56,6 +56,7 @@ CFLAGS="%{optflags}" %{__python2} setup.py build
 install -pDm644 doc/html/logo64x64.png %{buildroot}%{_datadir}/pixmaps/linkchecker.png
 
 rm -rf %{buildroot}%{python2_sitearch}/LinkChecker-%{version}-py%{python2_version}.egg-info
+# We don't need to let a terminal app have such file.
 rm %{buildroot}%{_datadir}/applications/linkchecker.desktop
 
 %find_lang linkchecker
@@ -64,7 +65,7 @@ rm %{buildroot}%{_datadir}/applications/linkchecker.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.desktop
 
 %files -f linkchecker.lang
-%doc COPYING README.txt
+%doc COPYING README.txt doc/changelog.txt doc/upgrading.txt
 %{_bindir}/linkchecker
 %{_bindir}/linkchecker-nagios
 %{python2_sitearch}/linkcheck/
@@ -82,8 +83,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
-* Fri Jan 10 2014 Christopher Meng <rpm@cicku.me> - 8.6-1
-- Update to 8.6
+* Fri Jan 10 2014 Christopher Meng <rpm@cicku.me> - 8.6-2
+- Add some missing docs.
+
+* Thu Jan 09 2014 Christopher Meng <rpm@cicku.me> - 8.6-1
+- Major update to 8.6
 - SPEC cleanup.
 - Standardize desktop files.
 
