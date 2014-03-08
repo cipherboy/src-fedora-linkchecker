@@ -65,7 +65,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %files -f linkchecker.lang
 %doc COPYING README.txt doc/changelog.txt doc/upgrading.txt
 %{_bindir}/linkchecker
-%{_bindir}/linkchecker-nagios
 %{python2_sitearch}/linkcheck/
 %{python2_sitearch}/linkcheck_dns/
 %{python2_sitearch}/_LinkChecker_configdata.*
