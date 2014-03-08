@@ -1,11 +1,10 @@
 Name:           linkchecker
-Version:        8.6
-Release:        2%{?dist}
+Version:        9.0
+Release:        1%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
 URL:            http://wummel.github.io/linkchecker/
 Source0:        http://wummel.github.io/linkchecker/dist/LinkChecker-%{version}.tar.xz
-Patch0:         linkchecker-fix-non-standard-deskop-file.patch
 # qt4-devel is for qcollectiongenerator (HTML documentation)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -14,19 +13,19 @@ BuildRequires:  python-setuptools
 BuildRequires:  qt4-devel
 
 %description
-LinkChecker is a free, GPL licensed website validator. LinkChecker checks 
-links in web documents or full websites.
+LinkChecker is a website validator. LinkChecker checks links in web documents 
+or full websites.
 
 Features:
-- recursive and multithreaded checking and site crawling
-- output in colored or normal text, HTML, SQL, CSV, XML or a sitemap graph in 
+- Recursive and multithreaded checking and site crawling
+- Output in colored or normal text, HTML, SQL, CSV, XML or a sitemap graph in 
 different formats
 - HTTP/1.1, HTTPS, FTP, mailto:, news:, nntp:, Telnet and local file links 
 support
-- restriction of link checking with regular expression filters for URLs
-- proxy support
-- username/password authorization for HTTP and FTP and Telnet
-- honors robots.txt exclusion protocol
+- Restriction of link checking with regular expression filters for URLs
+- Proxy support
+- Username/password authorization for HTTP and FTP and Telnet
+- Honors robots.txt exclusion protocol
 - Cookie support
 - HTML5 support
 - HTML and CSS syntax check
@@ -35,17 +34,16 @@ support
 ... and a lot more ...
 
 %package        gui
-Summary:        GUI of %{name}
+Summary:        GUI program for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       PyQt4
 Requires:       qscintilla-python
 
 %description    gui
-This package contains a GUI program of %{name}.
+This package contains a GUI program for %{name}.
 
 %prep
 %setup -qn LinkChecker-%{version}
-%patch0 -p1
 
 %build
 make -C doc/html/
@@ -83,6 +81,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Sat Mar 08 2014 Christopher Meng <rpm@cicku.me> - 9.0-1
+- Update to 9.0
+
 * Fri Jan 10 2014 Christopher Meng <rpm@cicku.me> - 8.6-2
 - Add some missing docs.
 
