@@ -11,10 +11,10 @@ BuildRequires:  gettext
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  qt4-devel
+Requires:       python-requests
 
 %description
-LinkChecker is a website validator. LinkChecker checks links in web documents 
-or full websites.
+LinkChecker is a website validator. LinkChecker checks links in web documents or full websites.
 
 Features:
 - Recursive and multithreaded checking and site crawling
