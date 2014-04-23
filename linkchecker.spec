@@ -1,5 +1,5 @@
 Name:           linkchecker
-Version:        9.0
+Version:        9.1
 Release:        1%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Tue Apr 01 2014 Christopher Meng <rpm@cicku.me> - 9.1-1
+- Update to 9.1
+
 * Sat Mar 08 2014 Christopher Meng <rpm@cicku.me> - 9.0-1
 - Update to 9.0
 
