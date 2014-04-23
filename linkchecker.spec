@@ -4,7 +4,7 @@ Release:        1%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
 URL:            http://wummel.github.io/linkchecker/
-Source0:        http://wummel.github.io/linkchecker/dist/LinkChecker-%{version}.tar.xz
+Source0:        http://wummel.github.io/linkchecker/dist/LinkChecker-%{version}.tar.gz
 # qt4-devel is for qcollectiongenerator (HTML documentation)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
