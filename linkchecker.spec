@@ -53,7 +53,8 @@ CFLAGS="%{optflags}" %{__python2} setup.py build
 %{__python2} setup.py install -O1 --skip-build --root=%{buildroot}
 install -pDm644 doc/html/logo64x64.png %{buildroot}%{_datadir}/pixmaps/linkchecker.png
 
-rm -rf %{buildroot}%{python2_sitearch}/LinkChecker-%{version}-py%{python2_version}.egg-info
+# No need to import this package.
+rm -frv %{buildroot}%{python2_sitearch}/LinkChecker-%{version}-py%{python2_version}.egg-info
 # We don't need to let a terminal app have such file.
 rm %{buildroot}%{_datadir}/applications/linkchecker.desktop
 
@@ -63,7 +64,7 @@ rm %{buildroot}%{_datadir}/applications/linkchecker.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.desktop
 
 %files -f linkchecker.lang
-%doc COPYING README.txt doc/changelog.txt doc/upgrading.txt
+%doc COPYING doc/changelog.txt doc/upgrading.txt
 %{_bindir}/linkchecker
 %{python2_sitearch}/linkcheck/
 %{python2_sitearch}/linkcheck_dns/
