@@ -1,6 +1,6 @@
 Name:           linkchecker
 Version:        9.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
 URL:            http://wummel.github.io/linkchecker/
@@ -12,6 +12,10 @@ BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  qt4-devel
 Requires:       python-requests
+
+# Should be fixed upstream in next release; see:
+# https://github.com/wummel/linkchecker/commit/c2ce810c3fb00b895a841a7be6b2e78c64e7b042
+Patch0: fix-requests-version-bug.patch
 
 %description
 LinkChecker is a website validator. LinkChecker checks links in web documents or full websites.
@@ -44,6 +48,8 @@ This package contains a GUI program for %{name}.
 
 %prep
 %setup -qn LinkChecker-%{version}
+
+%patch0 -p1
 
 %build
 make -C doc/html/
@@ -81,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Tue Jul 19 2016 Charalampos Stratakis <cstratak@redhat.com> - 9.3-6
+- Backport upstream patch to fix python-requests version error
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.3-5
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
