@@ -1,6 +1,6 @@
 Name:           linkchecker
 Version:        9.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
 URL:            http://wummel.github.io/linkchecker/
@@ -81,6 +81,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.3-5
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 9.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
