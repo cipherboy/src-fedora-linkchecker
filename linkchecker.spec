@@ -1,10 +1,10 @@
 Name:           linkchecker
 Version:        9.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
-URL:            http://wummel.github.io/linkchecker/
-Source0:        http://wummel.github.io/linkchecker/dist/LinkChecker-%{version}.tar.gz
+URL:            https://linkcheck.github.io/linkchecker/
+Source0:        https://pypi.python.org/packages/source/L/LinkChecker/LinkChecker-%{version}.tar.gz
 # qt4-devel is for qcollectiongenerator (HTML documentation)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Tue Aug 15 2017 W. Michael Petullo <mike[at]flyn.org> - 9.3-10
+- Update URL and Source0.
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 9.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
