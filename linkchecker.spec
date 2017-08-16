@@ -1,10 +1,10 @@
 Name:           linkchecker
-Version:        9.3
-Release:        10%{?dist}
+Version:        9.3.1
+Release:        1%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
 URL:            https://linkcheck.github.io/linkchecker/
-Source0:        https://pypi.python.org/packages/source/L/LinkChecker/LinkChecker-%{version}.tar.gz
+Source0:        https://github.com/linkcheck/linkchecker/archive/v%{version}.tar.gz
 # qt4-devel is for qcollectiongenerator (HTML documentation)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -15,7 +15,6 @@ Requires:       python-requests
 
 # Should be fixed upstream in next release; see:
 # https://github.com/wummel/linkchecker/commit/c2ce810c3fb00b895a841a7be6b2e78c64e7b042
-Patch0: fix-requests-version-bug.patch
 
 %description
 LinkChecker is a website validator. LinkChecker checks links in web documents or full websites.
@@ -47,9 +46,7 @@ Requires:       qscintilla-python
 This package contains a GUI program for %{name}.
 
 %prep
-%setup -qn LinkChecker-%{version}
-
-%patch0 -p1
+%setup -qn linkchecker-%{version}
 
 %build
 make -C doc/html/
@@ -60,7 +57,8 @@ CFLAGS="%{optflags}" %{__python2} setup.py build
 install -pDm644 doc/html/logo64x64.png %{buildroot}%{_datadir}/pixmaps/linkchecker.png
 
 # No need to import this package.
-rm -frv %{buildroot}%{python2_sitearch}/LinkChecker-%{version}-py%{python2_version}.egg-info
+# Asterisk here was %{version}, but 9.3.1 uses 9.3; not yet sure if this will continue.
+rm -frv %{buildroot}%{python2_sitearch}/LinkChecker-*-py%{python2_version}.egg-info
 # We don't need to let a terminal app have such file.
 rm %{buildroot}%{_datadir}/applications/linkchecker.desktop
 
