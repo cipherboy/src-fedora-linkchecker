@@ -85,6 +85,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Tue Aug 15 2017 W. Michael Petullo <mike[at]flyn.org> - 9.3.1-1
+- Update to 9.3.1
+
 * Tue Aug 15 2017 W. Michael Petullo <mike[at]flyn.org> - 9.3-10
 - Update URL and Source0.
 
