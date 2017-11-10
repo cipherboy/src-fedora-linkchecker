@@ -13,9 +13,6 @@ BuildRequires:  python-setuptools
 BuildRequires:  qt4-devel
 Requires:       python-requests
 
-# Should be fixed upstream in next release; see:
-# https://github.com/wummel/linkchecker/commit/c2ce810c3fb00b895a841a7be6b2e78c64e7b042
-
 %description
 LinkChecker is a website validator. LinkChecker checks links in web documents or full websites.
 
