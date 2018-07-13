@@ -1,6 +1,6 @@
 Name:           linkchecker
 Version:        9.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPLv2
 URL:            https://linkcheck.github.io/linkchecker/
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/linkchecker-gui.deskt
 %{_datadir}/pixmaps/linkchecker.png
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 9.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Fri Feb 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 9.3.1-4
 - Escape macros in %%changelog
 
